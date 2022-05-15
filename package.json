@@ -3,8 +3,6 @@
   "version": "1.0.0",
   "displayName": "Heartfield Productions Core",
   "description": "Core dependencies",
-  "unity": "2021.3",
-  "unityRelease": "2f1",
   "author": {
     "name": "Heartfield Productions"
   },
