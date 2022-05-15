@@ -1,6 +1,6 @@
 {
-    "name": "heartfield-productions.core.editor",
-    "rootNamespace": "HeartfieldEditor.Core",
+    "name": "heartfield.core.runtime",
+    "rootNamespace": "Heartfield",
     "references": [],
     "includePlatforms": [],
     "excludePlatforms": [],
