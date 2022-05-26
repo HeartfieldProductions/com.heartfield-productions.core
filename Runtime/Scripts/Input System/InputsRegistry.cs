@@ -76,6 +76,7 @@ namespace Heartfield.Inputs
 
     public static class InputsRegistry
     {
+#if HEARTFIELD_INPUT_SYSTEM
         static Dictionary<Enum, InputActionReference> _actionMaps = new Dictionary<Enum, InputActionReference>();
         static InputActionReference[] _allInputActionReference;
 
@@ -200,5 +201,6 @@ namespace Heartfield.Inputs
         public static void ActionEvent(UiActionMap actionMap, Context ctx, Action<InputAction.CallbackContext> action, bool register) => RegisterContext(actionMap, action, ctx, register);
         public static void ActionEvent(MouseActionMap actionMap, Context ctx, Action<InputAction.CallbackContext> action, bool register) => RegisterContext(actionMap, action, ctx, register);
         public static void ActionEvent(CameraActionMap actionMap, Context ctx, Action<InputAction.CallbackContext> action, bool register) => RegisterContext(actionMap, action, ctx, register);
+#endif
     }
 }
