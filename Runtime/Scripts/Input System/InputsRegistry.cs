@@ -1,6 +1,8 @@
 using System;
 using UnityEngine;
+#if HEARTFIELD_INPUT_SYSTEM
 using UnityEngine.InputSystem;
+#endif
 using System.Collections.Generic;
 
 namespace Heartfield.Inputs
