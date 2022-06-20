@@ -2,15 +2,16 @@ using UnityEngine;
 
 namespace Heartfield
 {
+    [DefaultExecutionOrder(-1000)]
     public class HeartfieldCore : MonoBehaviour
     {
-        Transform tr;
+        [HideInInspector] Transform tr;
         public Transform GetTransform => tr;
 
-        GameObject go;
+        [HideInInspector] GameObject go;
         public GameObject GetGameObject => go;
 
-        bool _init = false;
+        [HideInInspector] bool _init = false;
 
         void Init()
         {
