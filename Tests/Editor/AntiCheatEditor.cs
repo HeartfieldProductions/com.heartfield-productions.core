@@ -7,14 +7,14 @@ namespace HeartfieldEditor.Protection
     [CustomEditor(typeof(AntiCheatTest))]
     public class AntiCheatEditor : Editor
     {
-        float health;
-        int inventoryCapacity;
-        bool wearArmor;
+        static float health;
+        static int inventoryCapacity;
+        static bool wearArmor;
 
         static bool[] hasAnomaly = new bool[3] { false, false, false };
-        int anomalyCount;
+        static int anomalyCount;
 
-        bool showResultInfo;
+        static bool showResultInfo;
 
         bool CheckAnomaly()
         {
@@ -37,32 +37,43 @@ namespace HeartfieldEditor.Protection
         {
             var source = (AntiCheatTest)target;
 
+            EditorGUILayout.BeginVertical(EditorStyles.helpBox);
             EditorGUILayout.LabelField("Health", source.health.ToString());
             EditorGUILayout.LabelField("Inventory Capacity", source.inventoryCapacity.ToString());
             EditorGUILayout.LabelField("Wear Armor", source.wearArmor.ToString());
+            EditorGUILayout.EndVertical();
 
             EditorGUILayout.Separator();
 
+            EditorGUILayout.BeginVertical();
+            EditorGUILayout.BeginHorizontal();
             health = EditorGUILayout.FloatField("Health", Mathf.Max(health, 0));
-            inventoryCapacity = EditorGUILayout.IntField("Inventory Capacity", Mathf.Max(inventoryCapacity, 0));
-            wearArmor = EditorGUILayout.Toggle("Wear Armor", wearArmor);
+            if (GUILayout.Button("Hack Value"))
+            {
+                source.health += Random.Range(25, 151);
+            }
+            EditorGUILayout.EndHorizontal();
 
             EditorGUILayout.BeginHorizontal();
-            EditorGUILayout.BeginVertical();
-            if (GUILayout.Button("Hack Health"))
+            inventoryCapacity = EditorGUILayout.IntField("Inventory Capacity", Mathf.Max(inventoryCapacity, 0));
+            if (GUILayout.Button("Hack Value"))
             {
-                source.health += 100;
+                source.inventoryCapacity += Random.Range(5, 16);
             }
-            if (GUILayout.Button("Hack Inventory Capacity"))
-            {
-                source.inventoryCapacity += 5;
-            }
-            if (GUILayout.Button("Hack Wear Armor"))
+            EditorGUILayout.EndHorizontal();
+
+            EditorGUILayout.BeginHorizontal();
+            wearArmor = EditorGUILayout.Toggle("Wear Armor", wearArmor);
+            if (GUILayout.Button("Hack Value"))
             {
                 source.wearArmor = !source.wearArmor;
             }
+            EditorGUILayout.EndHorizontal();
             EditorGUILayout.EndVertical();
 
+            EditorGUILayout.Separator();
+
+            EditorGUILayout.BeginHorizontal();
             if (GUILayout.Button("Check Anomaly"))
             {
                 hasAnomaly[0] = source.antiCheat.GetValue(ref source.health, health);
@@ -97,7 +108,7 @@ namespace HeartfieldEditor.Protection
 
             if (CheckAnomaly())
             {
-                EditorGUILayout.HelpBox($"{anomalyCount} Anomalies Identified", MessageType.Error);
+                EditorGUILayout.HelpBox($"{anomalyCount} anomalies identified", MessageType.Error);
             }
             else
             {

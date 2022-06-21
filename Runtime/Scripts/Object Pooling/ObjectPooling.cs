@@ -5,15 +5,16 @@ namespace Heartfield.Pooling
 {
     public sealed class ObjectPooling : ObjectPooling<Transform>
     {
-        public ObjectPooling(Transform prefab, int size) : base(prefab, size) { }
-        public ObjectPooling(List<Transform> prefabs, int size) : base(prefabs, size) { }
+        public ObjectPooling(Transform prefab, int size, bool instantiate = false) : base(prefab, size, instantiate) { }
+        public ObjectPooling(Transform[] prefabs, int size, bool instantiate = false) : base(prefabs, size, instantiate) { }
+        public ObjectPooling(List<Transform> prefabs, int size, bool instantiate = false) : base(prefabs, size, instantiate) { }
     }
 
     public class ObjectPooling<T> where T : Component
     {
         List<Queue<T>> list = new List<Queue<T>>();
 
-        void Initialize(T prefab, int size)
+        void Initialize(T prefab, int size, bool instantiate)
         {
             if (size == 0)
             {
@@ -22,26 +23,44 @@ namespace Heartfield.Pooling
             }
 
             var objectPool = new Queue<T>();
+            var position = new Vector3(0, -10000, 0);
+            var rotation = Quaternion.identity;
 
             for (int i = 0; i < size; i++)
             {
-                var go = Object.Instantiate(prefab, new Vector3(0, -10000, 0), Quaternion.identity);
-                objectPool.Enqueue(go);
+                if (instantiate)
+                {
+                    var go = Object.Instantiate(prefab, position, rotation);
+                    objectPool.Enqueue(go);
+                }
+                else
+                {
+                    prefab.transform.SetPositionAndRotation(position, rotation);
+                    objectPool.Enqueue(prefab);
+                }
             }
 
             list.Add(objectPool);
         }
 
-        public ObjectPooling(T prefab, int size)
+        public ObjectPooling(T prefab, int size, bool instantiate = false)
         {
-            Initialize(prefab, size);
+            Initialize(prefab, size, instantiate);
         }
 
-        public ObjectPooling(List<T> prefabs, int size)
+        public ObjectPooling(T[] prefabs, int size,bool instantiate = false)
+        {
+            for (int i = 0; i < prefabs.Length; i++)
+            {
+                Initialize(prefabs[i], size, instantiate);
+            }
+        }
+
+        public ObjectPooling(List<T> prefabs, int size, bool instantiate = false)
         {
             for (int i = 0; i < prefabs.Count; i++)
             {
-                Initialize(prefabs[i], size);
+                Initialize(prefabs[i], size, instantiate);
             }
         }
 

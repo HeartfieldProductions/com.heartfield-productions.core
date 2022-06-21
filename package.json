@@ -1,9 +1,10 @@
 {
   "name": "com.heartfield-productions.core",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "displayName": "Heartfield Productions Core",
   "description": "Core dependencies",
   "author": {
     "name": "Heartfield Productions"
-  }
+  },
+  "hideInEditor": true
 }
