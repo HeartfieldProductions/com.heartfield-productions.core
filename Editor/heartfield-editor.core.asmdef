@@ -1,0 +1,18 @@
+{
+    "name": "heartfield.core.editor",
+    "rootNamespace": "HeartfieldEditor",
+    "references": [
+        "GUID:8c7130d203f708046af84729880abff5"
+    ],
+    "includePlatforms": [
+        "Editor"
+    ],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

@@ -1,0 +1,16 @@
+{
+    "name": "heartfield.core.tests",
+    "rootNamespace": "",
+    "references": [
+        "GUID:8c7130d203f708046af84729880abff5"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

@@ -3,7 +3,7 @@ using UnityEngine;
 namespace Heartfield
 {
     [DefaultExecutionOrder(-1000)]
-    public class HeartfieldCore : MonoBehaviour
+    public abstract class HeartfieldCore : MonoBehaviour
     {
         [HideInInspector] Transform tr;
         public Transform GetTransform => tr;

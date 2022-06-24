@@ -2,14 +2,14 @@ using UnityEditor;
 
 namespace HeartfieldEditor
 {
-    public abstract class HeartfieldEditorWindow<Asset> : EditorWindow
+    public abstract class EditorWindow<Asset> : EditorWindow where Asset : EditorWindowAsset
     {
-        protected abstract Asset AssetToSave { get; }
+        protected abstract Asset GetAsset { get; }
         protected abstract string AssetKey { get; }
 
         protected void SaveWindowAsset()
         {
-            var data = EditorJsonUtility.ToJson(AssetToSave);
+            var data = EditorJsonUtility.ToJson(GetAsset);
             EditorPrefs.SetString(AssetKey, data);
         }
 
@@ -18,7 +18,7 @@ namespace HeartfieldEditor
             var data = EditorPrefs.GetString(AssetKey);
 
             if (!string.IsNullOrEmpty(data))
-                EditorJsonUtility.FromJsonOverwrite(data, AssetToSave);
+                EditorJsonUtility.FromJsonOverwrite(data, GetAsset);
         }
 
         protected void ClearWindowAsset()
