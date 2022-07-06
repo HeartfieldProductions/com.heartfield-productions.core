@@ -1,4 +1,6 @@
 using System;
+using UnityEngine;
+using System.Linq;
 using System.Reflection;
 
 namespace HeartfieldEditor
@@ -28,51 +30,108 @@ namespace HeartfieldEditor
             return null;
         }
 
-        const BindingFlags reflectionBinds = BindingFlags.Instance | BindingFlags.NonPublic |
-                                             BindingFlags.Public | BindingFlags.Static;
+        const BindingFlags binds = BindingFlags.Instance | BindingFlags.NonPublic |
+                                   BindingFlags.Public | BindingFlags.Static | BindingFlags.InvokeMethod;
 
-        public static void InvokeMethod(this Type source, string name, object[] args, BindingFlags bindingFlags = reflectionBinds)
+        #region Invoke Methods
+        public static void InvokeMethod(this Type source, string name, object[] parameters, BindingFlags bindingAttr = binds)
         {
-            var method = source.GetMethod(name, reflectionBinds);
-            _ = method.Invoke(source, args);
+            _ = source.GetMethod(name, bindingAttr).Invoke(source, parameters);
         }
 
-        public static void InvokeMethod(this Type source, string name, BindingFlags bindingFlags = reflectionBinds)
+        public static void InvokeMethod(this MonoBehaviour source, string name, object[] parameters, BindingFlags bindingAttr = binds)
         {
-            InvokeMethod(source, name, null);
+            InvokeMethod(source.GetType(), name, parameters, bindingAttr);
         }
 
-        public static T GetMethodValue<T>(this Type source, string name, object[] args, BindingFlags bindingFlags = reflectionBinds)
+        public static void InvokeMethod(this Type source, string name, BindingFlags bindingAttr = binds)
         {
-            var method = source.GetMethod(name, reflectionBinds);
-            return (T)method.Invoke(source, args);
+            InvokeMethod(source, name, null, bindingAttr);
         }
 
-        public static T GetMethodValue<T>(this Type source, string name, BindingFlags bindingFlags = reflectionBinds)
+        public static void InvokeMethod(this MonoBehaviour source, string name, BindingFlags bindingAttr = binds)
         {
-            return GetMethodValue<T>(source, name, null);
+            InvokeMethod(source, name, null, bindingAttr);
+        }
+        #endregion
+
+        #region Get Methods Values
+        public static T GetMethodValue<T>(this Type source, string name, object[] parameters, BindingFlags bindingAttr = binds)
+        {
+            MethodInfo method = null;
+
+            if (parameters == null)
+            {
+                method = source.GetMethods(bindingAttr).Where(x => x.Name == name).FirstOrDefault(x => x.IsGenericMethod);
+            }
+            else
+            {
+                method = source.GetMethods(bindingAttr).Where(x => x.Name == name).FirstOrDefault(x => !x.IsGenericMethod);
+            }
+
+            return (T)method.Invoke(source, parameters);
         }
 
-        public static T GetFieldValue<T>(this Type source, string name, BindingFlags bindingFlags = reflectionBinds)
+        public static T GetMethodValue<T>(this MonoBehaviour source, string name, object[] parameters, BindingFlags bindingAttr = binds)
         {
-            return (T)source.GetField(name, reflectionBinds).GetValue(source);
+            return GetMethodValue<T>(source.GetType(), name, parameters, bindingAttr);
         }
 
-        public static void SetFieldValue<T>(this Type source, string name, T value, BindingFlags bindingFlags = reflectionBinds)
+        public static T GetMethodValue<T>(this Type source, string name, BindingFlags bindingAttr = binds)
         {
-            var field = source.GetField(name, reflectionBinds);
+            return GetMethodValue<T>(source, name, null, bindingAttr);
+        }
+
+        public static T GetMethodValue<T>(this MonoBehaviour source, string name, BindingFlags bindingAttr = binds)
+        {
+            return GetMethodValue<T>(source, name, null, bindingAttr);
+        }
+        #endregion
+
+        #region Field Values
+        public static T GetFieldValue<T>(this Type source, string name, BindingFlags bindingAttr = binds)
+        {
+            return (T)source.GetField(name, bindingAttr).GetValue(source);
+        }
+
+        public static T GetFieldValue<T>(this MonoBehaviour source, string name, BindingFlags bindingAttr = binds)
+        {
+            return GetFieldValue<T>(source.GetType(), name, bindingAttr);
+        }
+
+        public static void SetFieldValue<T>(this Type source, string name, T value, BindingFlags bindingAttr = binds)
+        {
+            var field = source.GetField(name, bindingAttr);
             field.SetValue(source, value);
         }
 
-        public static T GetPropertyValue<T>(this Type source, string name, BindingFlags bindingFlags = reflectionBinds)
+        public static void SetFieldValue<T>(this MonoBehaviour source, string name, T value, BindingFlags bindingAttr = binds)
         {
-            return (T)source.GetProperty(name, reflectionBinds).GetValue(source);
+            SetFieldValue(source.GetType(), name, value, bindingAttr);
+        }
+        #endregion
+
+        #region Property Values
+        public static T GetPropertyValue<T>(this Type source, string name, BindingFlags bindingAttr = binds)
+        {
+            return (T)source.GetProperty(name, bindingAttr).GetValue(source);
         }
 
-        public static void SetPropertyValue<T>(this Type source, string name, T value, BindingFlags bindingFlags = reflectionBinds)
+        public static T GetPropertyValue<T>(this MonoBehaviour source, string name, BindingFlags bindingAttr = binds)
         {
-            var property = source.GetProperty(name, reflectionBinds);
+            return GetPropertyValue<T>(source.GetType(), name, bindingAttr);
+        }
+
+        public static void SetPropertyValue<T>(this Type source, string name, T value, BindingFlags bindingAttr = binds)
+        {
+            var property = source.GetProperty(name, bindingAttr);
             property.SetValue(source, value);
         }
+
+        public static void SetPropertyValue<T>(this MonoBehaviour source, string name, T value, BindingFlags bindingAttr = binds)
+        {
+            SetPropertyValue(source.GetType(), name, value, bindingAttr);
+        }
+        #endregion
     }
 }

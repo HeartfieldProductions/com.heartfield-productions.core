@@ -1,5 +1,5 @@
 {
-    "name": "heartfield.core.editor",
+    "name": "HeartfieldEditor.Core",
     "rootNamespace": "HeartfieldEditor",
     "references": [
         "GUID:8c7130d203f708046af84729880abff5"

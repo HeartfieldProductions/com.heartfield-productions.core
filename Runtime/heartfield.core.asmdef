@@ -1,5 +1,5 @@
 {
-    "name": "heartfield.core.runtime",
+    "name": "Heartfield.Core",
     "rootNamespace": "Heartfield",
     "references": [],
     "includePlatforms": [],

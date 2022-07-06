@@ -1,29 +1,44 @@
+using System;
 using UnityEditor;
 
 namespace HeartfieldEditor
 {
     public abstract class EditorWindow<Asset> : EditorWindow where Asset : EditorWindowAsset
     {
-        protected abstract Asset GetAsset { get; }
-        protected abstract string AssetKey { get; }
+        static Asset asset;
 
-        protected void SaveWindowAsset()
+        protected static Asset GetAsset
         {
-            var data = EditorJsonUtility.ToJson(GetAsset);
-            EditorPrefs.SetString(AssetKey, data);
+            get
+            {
+                if (asset == null)
+                    asset = (Asset)Activator.CreateInstance(typeof(Asset));
+
+                return asset;
+            }
         }
 
-        protected void LoadWindowAsset()
-        {
-            var data = EditorPrefs.GetString(AssetKey);
+        string GetAssetKey => $"{GetType().Name}_{GetAsset.GetType().Name}";
 
-            if (!string.IsNullOrEmpty(data))
+        void SaveWindowAsset()
+        {
+            var data = EditorJsonUtility.ToJson(GetAsset);
+            EditorPrefs.SetString(GetAssetKey, data);
+        }
+
+        void LoadWindowAsset()
+        {
+            var data = EditorPrefs.GetString(GetAssetKey);
+
+            if (string.IsNullOrEmpty(data))
+                GetAsset.RevertDefults();
+            else
                 EditorJsonUtility.FromJsonOverwrite(data, GetAsset);
         }
 
         protected void ClearWindowAsset()
         {
-            EditorPrefs.DeleteKey(AssetKey);
+            EditorPrefs.DeleteKey(GetAssetKey);
         }
 
         protected virtual void OnEnable()
@@ -40,6 +55,7 @@ namespace HeartfieldEditor
         {
             base.SaveChanges();
             SaveWindowAsset();
+            GetAsset.hasChangesNotSaved = false;
         }
     }
 }
