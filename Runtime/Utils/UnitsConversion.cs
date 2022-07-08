@@ -2,13 +2,13 @@ namespace Heartfield.Utils
 {
     public static class UnitsConversion
     {
-        const float mmToInchFraction = 1f / 25.4f;
-        const float cmToInchFraction = 1f / 2.54f;
-        const float inchToMeterFraction = 1f / 39.37f;
-        const float kmhToMphFraction = 1f / 1.609f;
-        const float kmhToMsFraction = 1f / 3.6f;
-        const float fToCfraction = 9f / 5f;
-        const float HpToKwFraction = 1f / 1.341f;
+        const float mmToInchFraction = 0.039f;//1f / 25.4f;
+        const float cmToInchFraction = 0.393f;//1f / 2.54f;
+        const float inchToMeterFraction = 0.025f;//1f / 39.37f;
+        const float kmhToMphFraction = 0.621f;//1f / 1.609f;
+        const float kmhToMsFraction = 0.277f;//1f / 3.6f;
+        const float fToCfraction = 1.8f;//9f / 5f;
+        const float HpToKwFraction = 0.745f;//1f / 1.341f;
 
         /// <summary>
         /// divide the length value by 10
@@ -124,7 +124,7 @@ namespace Heartfield.Utils
         /// <returns></returns>
         public static float CelsiusToFahrenheit(float value) => (value * 1.8f) + 32f;
         /// <summary>
-        /// (value - 32) * (5/9)
+        /// (value - 32) * 1.8
         /// </summary>
         /// <param name="value"></param>
         /// <returns></returns>
