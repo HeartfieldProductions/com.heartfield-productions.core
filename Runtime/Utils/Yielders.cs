@@ -7,7 +7,7 @@ namespace Heartfield.Utils
     {
         static Dictionary<float, WaitForSeconds> _timeInterval = new Dictionary<float, WaitForSeconds>(64);
         //static Dictionary<Func<bool>, WaitUntil> _waitUntil = new Dictionary<Func<bool>, WaitUntil>(64);
-        ////static Dictionary<bool, WaitFor> _waitFor = new Dictionary<bool, WaitFor>(100);
+        //static Dictionary<bool, WaitFor> _waitFor = new Dictionary<bool, WaitFor>(100);
 
         static WaitForEndOfFrame _waitEndOfFrame = new WaitForEndOfFrame();
         static WaitForFixedUpdate _waitForFixedUpdate = new WaitForFixedUpdate();
@@ -25,7 +25,7 @@ namespace Heartfield.Utils
         /// <summary>
         /// Suspends the coroutine execution for the given amount of seconds using scaled time. 
         /// </summary>
-        /// <param name="seconds"></param>
+        /// <param name="seconds">Delay execution by the amount of time in seconds.</param>
         /// <returns>Delay execution by the amount of time in seconds.</returns>
         public static WaitForSeconds WaitSeconds(float seconds)
         {
