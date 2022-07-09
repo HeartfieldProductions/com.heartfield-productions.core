@@ -2,7 +2,7 @@ using UnityEngine;
 
 namespace Heartfield
 {
-    public static class TimeConversion
+    public static class DateTimeConversion
     {
         public static float SecondsToMinutes(float seconds) => seconds * 0016f;
         public static int SecondsToMinutes(int seconds) => Mathf.CeilToInt(SecondsToMinutes((float)seconds));

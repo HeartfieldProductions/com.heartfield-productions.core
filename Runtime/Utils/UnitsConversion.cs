@@ -2,13 +2,13 @@ namespace Heartfield.Utils
 {
     public static class UnitsConversion
     {
-        const float mmToInchFraction = 0.039f;//1f / 25.4f;
-        const float cmToInchFraction = 0.393f;//1f / 2.54f;
-        const float inchToMeterFraction = 0.025f;//1f / 39.37f;
-        const float kmhToMphFraction = 0.621f;//1f / 1.609f;
-        const float kmhToMsFraction = 0.277f;//1f / 3.6f;
-        const float fToCfraction = 1.8f;//9f / 5f;
-        const float HpToKwFraction = 0.745f;//1f / 1.341f;
+        //const float mmToInchFraction = 0.039f;//1f / 25.4f;
+        //const float cmToInchFraction = 0.393f;//1f / 2.54f;
+        //const float inchToMeterFraction = 0.025f;//1f / 39.37f;
+        //const float kmhToMphFraction = 0.621f;//1f / 1.609f;
+        //const float kmhToMsFraction = 0.277f;//1f / 3.6f;
+        //const float fToCfraction = 1.8f;//9f / 5f;
+        //const float HpToKwFraction = 0.745f;//1f / 1.341f;
 
         /// <summary>
         /// divide the length value by 10
@@ -27,7 +27,7 @@ namespace Heartfield.Utils
         /// </summary>
         /// <param name="value"></param>
         /// <returns></returns>
-        public static float MmToInch(float value) => value * mmToInchFraction;
+        public static float MmToInch(float value) => value * 0.039f;
 
         /// <summary>
         /// multiply the length value by 10
@@ -46,7 +46,7 @@ namespace Heartfield.Utils
         /// </summary>
         /// <param name="value"></param>
         /// <returns></returns>
-        public static float CmToInch(float value) => value * cmToInchFraction;
+        public static float CmToInch(float value) => value * 0.393f;
 
         /// <summary>
         /// multiply the length value by 1000
@@ -84,7 +84,7 @@ namespace Heartfield.Utils
         /// </summary>
         /// <param name="value"></param>
         /// <returns></returns>
-        public static float InchToMeter(float value) => value * inchToMeterFraction;
+        public static float InchToMeter(float value) => value * 0.025f;
 
         /// <summary>
         /// multiply the speed value by 3.6
@@ -103,13 +103,13 @@ namespace Heartfield.Utils
         /// </summary>
         /// <param name="value"></param>
         /// <returns></returns>
-        public static float KmhToMph(float value) => value * kmhToMphFraction;
+        public static float KmhToMph(float value) => value * 0.621f;
         /// <summary>
         /// divide the speed value by 3.6
         /// </summary>
         /// <param name="value"></param>
         /// <returns></returns>
-        public static float KmhToMs(float value) => value * kmhToMsFraction;
+        public static float KmhToMs(float value) => value * 0.277f;
         /// <summary>
         /// for an approximate result, multiply the speed value by 1.609
         /// </summary>
@@ -128,9 +128,9 @@ namespace Heartfield.Utils
         /// </summary>
         /// <param name="value"></param>
         /// <returns></returns>
-        public static float FahrenheitToCelsius(float value) => (value - 32) * fToCfraction;
+        public static float FahrenheitToCelsius(float value) => (value - 32) * 1.8f;
 
-        public static float HpToKw(float value) => value * HpToKwFraction;
+        public static float HpToKw(float value) => value * 0.745f;
         public static float KwToHp(float value) => value * 1.341f;
 
         public static float FtlbToNm(float value) => value * 1.356f;

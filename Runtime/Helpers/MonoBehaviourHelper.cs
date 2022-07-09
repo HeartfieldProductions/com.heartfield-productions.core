@@ -3,14 +3,17 @@ using System.Collections;
 
 namespace Heartfield
 {
-    public static class CoroutineHelpers
+    public static class MonoBehaviourHelper
     {
-        static CoroutineDummy dummy;
+        static MonoBehaviourDummy dummy;
 
-        static CoroutineHelpers()
+        public delegate void UnityMethod();
+        public static UnityMethod OnPostRender;
+
+        static MonoBehaviourHelper()
         {
             var gameObject = new GameObject();
-            dummy = gameObject.AddComponent<CoroutineDummy>();
+            dummy = gameObject.AddComponent<MonoBehaviourDummy>();
             Object.DontDestroyOnLoad(dummy);
         }
 
@@ -45,5 +48,11 @@ namespace Heartfield
         }
     }
 
-    class CoroutineDummy : MonoBehaviour { }
+    class MonoBehaviourDummy : MonoBehaviour
+    {
+        void OnPostRender()
+        {
+            MonoBehaviourHelper.OnPostRender?.Invoke();
+        }
+    }
 }
