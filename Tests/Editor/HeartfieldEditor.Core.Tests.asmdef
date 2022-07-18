@@ -1,0 +1,20 @@
+{
+    "name": "HeartfieldEditor.Core.Tests",
+    "rootNamespace": "HeartfieldEditor.Protection.Tests",
+    "references": [
+        "GUID:8c7130d203f708046af84729880abff5",
+        "GUID:92c74422f5010674baadf032e1479b48",
+        "GUID:f623106e96e3b8d49a8cfac07f0b1e57"
+    ],
+    "includePlatforms": [
+        "Editor"
+    ],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

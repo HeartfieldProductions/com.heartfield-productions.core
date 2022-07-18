@@ -14,7 +14,7 @@ namespace Heartfield.Pooling
     {
         List<Queue<T>> list = new List<Queue<T>>();
 
-        void Initialize(T prefab, int size, bool instantiate)
+        void Initialize(T prefab, int size, bool newInstance)
         {
             if (size == 0)
             {
@@ -28,7 +28,7 @@ namespace Heartfield.Pooling
 
             for (int i = 0; i < size; i++)
             {
-                if (instantiate)
+                if (newInstance)
                 {
                     var go = Object.Instantiate(prefab, position, rotation);
                     objectPool.Enqueue(go);
@@ -43,24 +43,24 @@ namespace Heartfield.Pooling
             list.Add(objectPool);
         }
 
-        public ObjectPooling(T prefab, int size, bool instantiate = false)
+        public ObjectPooling(T prefab, int size, bool newInstance = false)
         {
-            Initialize(prefab, size, instantiate);
+            Initialize(prefab, size, newInstance);
         }
 
-        public ObjectPooling(T[] prefabs, int size,bool instantiate = false)
+        public ObjectPooling(T[] prefabs, int size,bool newInstance = false)
         {
             for (int i = 0; i < prefabs.Length; i++)
             {
-                Initialize(prefabs[i], size, instantiate);
+                Initialize(prefabs[i], size, newInstance);
             }
         }
 
-        public ObjectPooling(List<T> prefabs, int size, bool instantiate = false)
+        public ObjectPooling(List<T> prefabs, int size, bool newInstance = false)
         {
             for (int i = 0; i < prefabs.Count; i++)
             {
-                Initialize(prefabs[i], size, instantiate);
+                Initialize(prefabs[i], size, newInstance);
             }
         }
 

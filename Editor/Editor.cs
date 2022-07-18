@@ -2,7 +2,7 @@ using UnityEditor;
 
 namespace HeartfieldEditor
 {
-    public abstract class EditorWindow<Asset> : EditorWindow where Asset : EditorAsset
+    public abstract class Editor<Asset> : Editor where Asset : EditorAsset
     {
         static EditorAssetBase<Asset> baseAsset = new EditorAssetBase<Asset>();
         public static Asset GetAsset => baseAsset.GetAsset;
@@ -14,12 +14,6 @@ namespace HeartfieldEditor
 
         protected virtual void OnDisable()
         {
-            baseAsset.SaveAsset();
-        }
-
-        public override void SaveChanges()
-        {
-            base.SaveChanges();
             baseAsset.SaveAsset();
         }
     }

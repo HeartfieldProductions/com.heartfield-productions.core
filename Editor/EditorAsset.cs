@@ -2,8 +2,10 @@ using UnityEngine;
 
 namespace HeartfieldEditor
 {
-    public abstract class EditorWindowAsset
+    public abstract class EditorAsset
     {
+        public EditorAsset() { }
+
         [SerializeField] public bool hasChangesNotSaved;
 
         public abstract void RevertDefults();
