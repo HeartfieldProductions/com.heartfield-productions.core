@@ -4,21 +4,16 @@ using Heartfield;
 
 namespace HeartfieldEditor
 {
-    [CustomPropertyDrawer(typeof(ShowOnlyAttribute))]
+    [CustomPropertyDrawer(typeof(ShowOnlyAttribute), true)]
     public class ReadOnlyDrawer : PropertyDrawer
     {
-        public override void OnGUI(Rect position, SerializedProperty prop, GUIContent label)
+        protected void ShowOnlyGUI<T>(T attribute, Rect position, SerializedProperty prop, out string valueStr) where T : ShowOnlyAttribute
         {
-            ShowOnlyAttribute att = (ShowOnlyAttribute)attribute;
-            string valueStr;
-            float floatValue = 0;
-            int intValue = 0;
-
             switch (prop.propertyType)
             {
                 case SerializedPropertyType.Integer:
-                    intValue = prop.intValue + (int)att.offset;
-                    valueStr = (prop.intValue + (int)att.offset).ToString();
+                    //intValue = prop.intValue + (int)att.offset;
+                    valueStr = (prop.intValue + (int)attribute.offset).ToString();
                     break;
 
                 case SerializedPropertyType.Boolean:
@@ -26,8 +21,8 @@ namespace HeartfieldEditor
                     break;
 
                 case SerializedPropertyType.Float:
-                    floatValue = prop.floatValue + att.offset;
-                    valueStr = (prop.floatValue + att.offset).ToString("f2").Replace(',', '.');
+                    //floatValue = prop.floatValue + att.offset;
+                    valueStr = (prop.floatValue + attribute.offset).ToString("f2").Replace(',', '.');
                     break;
 
                 case SerializedPropertyType.String:
@@ -90,7 +85,7 @@ namespace HeartfieldEditor
                     break;
 
                 case SerializedPropertyType.Generic:
-                    valueStr = "(Error)";
+                    valueStr = string.Empty;
                     EditorGUI.PropertyField(position, prop);
                     break;
 
@@ -104,19 +99,12 @@ namespace HeartfieldEditor
                     Debug.Log(prop.type);
                     break;
             }
+        }
 
-            if (att.setMinMax)
-            {
-                if (prop.propertyType == SerializedPropertyType.Float)
-                    EditorGUI.Slider(position, label.text, floatValue + att.offset, att.min, att.max);
-                else if (prop.propertyType == SerializedPropertyType.Integer)
-                    EditorGUI.IntSlider(position, label.text, intValue + (int)att.offset, (int)att.min, (int)att.max);
-            }
-            else
-            {
-                if (prop.propertyType != SerializedPropertyType.Generic)
-                    EditorGUI.LabelField(position, label.text, valueStr);
-            }
+        public override void OnGUI(Rect position, SerializedProperty prop, GUIContent label)
+        {
+            ShowOnlyGUI((ShowOnlyAttribute)attribute, position, prop, out string valueStr);
+            EditorGUI.LabelField(position, label.text, valueStr);
         }
     }
 }

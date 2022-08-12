@@ -2,7 +2,7 @@ using UnityEngine;
 
 namespace Heartfield
 {
-    public abstract class HeartfieldCoreSingleton<T> : HeartfieldCore
+    public abstract class HeartfieldCoreSingleton<T> : MonoBehaviour
     {
         protected abstract T Source { get; }
 
@@ -21,21 +21,19 @@ namespace Heartfield
         }
 
 #if UNITY_EDITOR
-        protected override void OnValidate()
+        void OnValidate()
         {
-            base.OnValidate();
             InitializeSingleton();
         }
 #endif
 
-        protected override void Awake()
+        void Awake()
         {
 #if UNITY_EDITOR
             if (!Application.isPlaying)
                 return;
 #endif
 
-            base.Awake();
             InitializeSingleton();
             DontDestroyOnLoad(this);
         }

@@ -2,14 +2,6 @@ namespace Heartfield.Utils
 {
     public static class UnitsConversion
     {
-        //const float mmToInchFraction = 0.039f;//1f / 25.4f;
-        //const float cmToInchFraction = 0.393f;//1f / 2.54f;
-        //const float inchToMeterFraction = 0.025f;//1f / 39.37f;
-        //const float kmhToMphFraction = 0.621f;//1f / 1.609f;
-        //const float kmhToMsFraction = 0.277f;//1f / 3.6f;
-        //const float fToCfraction = 1.8f;//9f / 5f;
-        //const float HpToKwFraction = 0.745f;//1f / 1.341f;
-
         /// <summary>
         /// divide the length value by 10
         /// </summary>
@@ -130,9 +122,38 @@ namespace Heartfield.Utils
         /// <returns></returns>
         public static float FahrenheitToCelsius(float value) => (value - 32) * 1.8f;
 
-        public static float HpToKw(float value) => value * 0.745f;
+        /// <summary>
+        /// value / 1.341
+        /// </summary>
+        /// <param name="value"></param>
+        /// <returns></returns>
+        public static float HpToKw(float value) => value * .745f;
+        /// <summary>
+        /// value * 1.341
+        /// </summary>
+        /// <param name="value"></param>
+        /// <returns></returns>
         public static float KwToHp(float value) => value * 1.341f;
 
+        /// <summary>
+        /// value * 1.356
+        /// </summary>
+        /// <param name="value"></param>
+        /// <returns></returns>
         public static float FtlbToNm(float value) => value * 1.356f;
+
+        /// <summary>
+        /// value * 0.070307
+        /// </summary>
+        /// <param name="value"></param>
+        /// <returns>PSI converted to Kg</returns>
+        public static float PsiToKg(float value) => value * .070307f;
+
+        /// <summary>
+        /// value * 14.223
+        /// </summary>
+        /// <param name="value"></param>
+        /// <returns></returns>
+        public static float KgToPsi(float value) => value * 14.223f;
     }
 }

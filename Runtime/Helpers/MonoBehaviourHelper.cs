@@ -12,8 +12,8 @@ namespace Heartfield
 
         static MonoBehaviourHelper()
         {
-            var gameObject = new GameObject();
-            dummy = gameObject.AddComponent<MonoBehaviourDummy>();
+            var go = new GameObject("[MonoBehaviour Dummy]");
+            dummy = go.AddComponent<MonoBehaviourDummy>();
             Object.DontDestroyOnLoad(dummy);
         }
 
@@ -48,7 +48,7 @@ namespace Heartfield
         }
     }
 
-    class MonoBehaviourDummy : MonoBehaviour
+    sealed class MonoBehaviourDummy : MonoBehaviour
     {
         void OnPostRender()
         {
