@@ -26,7 +26,7 @@ namespace HeartfieldEditor
             }
             catch (System.Exception ex)
             {
-                Debug.LogException(ex);
+                //Debug.LogException(ex);
             }
         }
 

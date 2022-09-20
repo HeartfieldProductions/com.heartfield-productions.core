@@ -3,9 +3,12 @@ using Heartfield.SceneManagement;
 
 namespace Heartfield
 {
-    [CreateAssetMenu(fileName = "New Game Manager Asset", menuName = "Heartfield Productions/Game Manager Asset")]
+    //[CreateAssetMenu(fileName = "New Game Manager Asset", menuName = "Heartfield Productions/Game Manager Asset")]
     public sealed class GameManagerAsset : ScriptableObject
     {
+        static GameManagerAsset _instance;
+        public static GameManagerAsset Instance => _instance;
+
         bool displayPauseMenu;
 
         public void QuitApplication()

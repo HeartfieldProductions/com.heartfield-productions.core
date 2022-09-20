@@ -4,10 +4,12 @@ using UnityEditor;
 
 namespace HeartfieldEditor
 {
-    sealed class GameManagerEditorWindow : EditorWindow
+    internal sealed class GameManagerEditorWindow : EditorWindow
     {
-        static GameManager managerSO;
+        static GameManagerAsset managerSO;
         static Editor managerEditor;
+
+        const string GAME_MANAGER_PATH = "Packages/com.heartfield-productions.core/Runtime/Resources/Game Manager Asset.asset";
 
         [MenuItem("Heartfield Productions/Game Manager")]
         static void Create()
@@ -21,7 +23,7 @@ namespace HeartfieldEditor
             if (managerEditor != null)
                 return;
 
-            managerSO = Resources.Load<GameManager>("Game Manager Asset");
+            managerSO = AssetDatabase.LoadAssetAtPath<GameManagerAsset>(GAME_MANAGER_PATH);
             managerEditor = Editor.CreateEditor(managerSO);
         }
 
